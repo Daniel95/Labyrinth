@@ -6,7 +6,7 @@ public class BallMovement : MonoBehaviour {
 	[SerializeField]
 	private float speed;
 	[SerializeField]
-	private int bounceStrength = 30;
+	private int bounceStrength;
 	
 	private BounceBack _bounceBack;
 	private Rigidbody _rb;
@@ -18,7 +18,7 @@ public class BallMovement : MonoBehaviour {
 		_rb.AddForce( this.transform.right * 150 );
 	}
 
-	void Update(){
+	void FixedUpdate(){
 		_rb.AddForce( this.transform.right * speed );
 	}
 

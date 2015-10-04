@@ -26,13 +26,13 @@ public class CheckPoints : MonoBehaviour {
 	public void Died(string cause){
 		Debug.Log (cause);
 
-		_rb.velocity = Vector3.zero;
-		_rb.angularVelocity = Vector3.zero;
+		_rb.velocity = _rb.angularVelocity = Vector3.zero;
 		goToLastCheckpoint(_currentCheckPoint);
 	}
 
     private void goToLastCheckpoint(GameObject checkpoint)
     {
+		Debug.Log (checkpoint);
 		this.transform.position = new Vector3(checkpoint.transform.position.x, checkpoint.transform.position.y + 2, checkpoint.transform.position.z);
     }
 }

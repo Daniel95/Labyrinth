@@ -5,11 +5,11 @@ public class PlayerMovement : MonoBehaviour {
 
 	[SerializeField]
 	private int bounceStrength;
+	[SerializeField]
+	private float boostSpeed;
 
 	private BounceBack _bounceBack;
     private Rigidbody _rb;
-    [SerializeField]
-    private float boostSpeed;
 
  void Start () {
  	_bounceBack = GetComponent<BounceBack>();
