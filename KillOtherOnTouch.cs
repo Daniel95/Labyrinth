@@ -14,7 +14,8 @@ public class KillOtherOnTouch: MonoBehaviour
 			if (other.gameObject.tag == _Cobjects[i]){
 				if(_Cobjects[i] == "Player"){
 					var player = other.gameObject.GetComponent<CheckPoints> ();
-					player.Died();
+					var cause = "A " + this.gameObject.name + " Hit You";
+					player.Died(cause);
 				} else Destroy (other.gameObject);
 			}
 		}

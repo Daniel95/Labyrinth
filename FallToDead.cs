@@ -2,13 +2,15 @@
 using System.Collections;
 
 public class FallToDead : MonoBehaviour {
-	
-	// Update is called once per frame
-	void Update () {
-		if (this.transform.position.y < -50)
-		if(this.gameObject.tag == "Player"){
-			var player = GetComponent<CheckPoints> ();
-			player.Died();
-		} else Destroy (this.gameObject);
+
+	void OnCollisionEnter(Collision obj){
+		if (obj.gameObject.tag == "Void") {
+			if (this.gameObject.tag == "Player") {
+				var player = GetComponent<CheckPoints> ();
+				var cause = "You Fell To Your Dead";
+				player.Died (cause);
+			} else
+				Destroy (this.gameObject);
+		}
 	}
 }

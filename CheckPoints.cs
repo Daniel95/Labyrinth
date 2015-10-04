@@ -9,11 +9,11 @@ public class CheckPoints : MonoBehaviour {
 
 	private GameObject _currentCheckPoint;
 
-	private Rigidbody rb;
+	private Rigidbody _rb;
 
 	void Start () {
 		_start = GameObject.Find("Start");
-		rb = GetComponent<Rigidbody> ();
+		_rb = GetComponent<Rigidbody> ();
 		goToLastCheckpoint(_start);
 	}
 
@@ -23,13 +23,15 @@ public class CheckPoints : MonoBehaviour {
 		}
 	}
 
-	public void Died(){
-		rb.velocity = Vector3.zero;
-		rb.angularVelocity = Vector3.zero;
+	public void Died(string cause){
+		Debug.Log (cause);
+
+		_rb.velocity = Vector3.zero;
+		_rb.angularVelocity = Vector3.zero;
 		goToLastCheckpoint(_currentCheckPoint);
 	}
 
-    public void goToLastCheckpoint(GameObject checkpoint)
+    private void goToLastCheckpoint(GameObject checkpoint)
     {
 		this.transform.position = new Vector3(checkpoint.transform.position.x, checkpoint.transform.position.y + 2, checkpoint.transform.position.z);
     }

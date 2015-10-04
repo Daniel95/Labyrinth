@@ -3,6 +3,9 @@ using System.Collections;
 
 public class MovePlayer : MonoBehaviour {
 
+	[SerializeField]
+	private int bounceStrength;
+
 	private BounceBack _bounceBack;
 
 	// Use this for initialization
@@ -12,7 +15,7 @@ public class MovePlayer : MonoBehaviour {
 	
 	void OnCollisionEnter(Collision obj) {
 		if (obj.collider.gameObject.tag == "BounceBlock") {
-			_bounceBack.Bounce(obj);
+			_bounceBack.Bounce(obj, bounceStrength);
 		}
 	}
 }

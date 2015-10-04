@@ -7,13 +7,13 @@ public class PlayerMovement : MonoBehaviour {
 	private int bounceStrength;
 
 	private BounceBack _bounceBack;
-    private Rigidbody rb;
+    private Rigidbody _rb;
     [SerializeField]
-    public int boostSpeed;
+    private float boostSpeed;
 
  void Start () {
  	_bounceBack = GetComponent<BounceBack>();
- 	rb = GetComponent<Rigidbody>();
+ 	_rb = GetComponent<Rigidbody>();
  }
  
  void OnCollisionEnter(Collision obj) {
@@ -23,10 +23,10 @@ public class PlayerMovement : MonoBehaviour {
  }
 
 public void goMove (int moveDir) {
-        if (moveDir == 1) rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, boostSpeed);
-        else if (moveDir == 2) rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, -boostSpeed);
-        else if (moveDir == 3) rb.velocity = new Vector3(-boostSpeed, rb.velocity.y, rb.velocity.z);
-        else if (moveDir == 4) rb.velocity = new Vector3(boostSpeed, rb.velocity.y, rb.velocity.z);
+		if (moveDir == 1) _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y, boostSpeed);
+		else if (moveDir == 2) _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y, -boostSpeed);
+		else if (moveDir == 3) _rb.velocity = new Vector3(-boostSpeed, _rb.velocity.y, _rb.velocity.z);
+		else if (moveDir == 4) _rb.velocity = new Vector3(boostSpeed, _rb.velocity.y, _rb.velocity.z);
     }  
     
 }
