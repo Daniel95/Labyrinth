@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour {
  }
  
  void OnCollisionEnter(Collision obj) {
-	if (obj.collider.gameObject.tag == "BounceBlock") {
+	if (obj.collider.gameObject.tag == "Bounce") {
 	  	_bounceBack.Bounce(obj, bounceStrength);
 	}
  }

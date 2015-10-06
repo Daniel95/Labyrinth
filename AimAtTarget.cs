@@ -11,6 +11,6 @@ public class AimAtTarget : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		turret.LookAt (transform.position);
+		turret.LookAt (target.position);
 	}
 }

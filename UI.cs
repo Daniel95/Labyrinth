@@ -25,7 +25,7 @@ public class UI : MonoBehaviour {
     void Update()
     {
         _theTime += Time.deltaTime;
-        timerText.text = "Time: " + _theTime;
+        timerText.text = "Time: " + (int)_theTime;
     }
 
     public int Deaths
