@@ -2,7 +2,9 @@
 using System.Collections;
 
 public class Flippers : MonoBehaviour {
-	private float rotitions = 0;
+	private float rotations = 0;
+    public float speed = 1f;
+    [SerializeField]
 	private bool open = false;
 	// Use this for initialization
 	void Start () {
@@ -31,9 +33,9 @@ public class Flippers : MonoBehaviour {
 	
 
 		if (open) {
-			if (rotitions < 90) {
-				transform.Rotate (Vector3.up * 10);
-				rotitions += 10;
+			if (rotations < 90) {
+				transform.Rotate (Vector3.up * speed);
+				rotations += speed;
 
 			} else {
 				open = false;
@@ -41,9 +43,9 @@ public class Flippers : MonoBehaviour {
 		} 
 		else 
 		{
-			if (rotitions >0) {
-				transform.Rotate (Vector3.up * -10);
-				rotitions -= 10;
+			if (rotations >0) {
+				transform.Rotate (Vector3.up * -speed);
+				rotations -= speed;
 			}
 		}
 	}
