@@ -6,14 +6,18 @@ public class StartCinematic : MonoBehaviour {
     private Transform GoToPoint;
     private Vector3 offset;
     private Vector3 rotationOffset;
+    private MoveWorld mWorld;
 
     private float moveSpeed = 1.01f;
     private float goSpeed;
     private bool gointToPlayer;
 
     void Start() {
+
         newVals();
         goSpeed = moveSpeed;
+        mWorld = GameObject.Find("World").GetComponent<MoveWorld>();
+        mWorld.DoMoveWorld = false;
     }
 
     void newVals()
@@ -39,7 +43,7 @@ public class StartCinematic : MonoBehaviour {
         //going to the next point
         if (Vector3.Distance(transform.position, GoToPoint.position) == 0)
         {
-            if (gointToPlayer) Destroy(this);
+            if (gointToPlayer) { mWorld.DoMoveWorld = true; Destroy(this); }
             else
             {
                 if (GoToPoint.gameObject.GetComponent<NextPoint>().newPos.gameObject.tag == "Player")

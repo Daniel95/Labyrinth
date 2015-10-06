@@ -6,13 +6,14 @@ public class MoveWorld : MonoBehaviour {
     private bool _forward, _backward, _left, _right;
     private float _tLeft, _tForward;
     private int _tSpeed = 2;
+    private bool doMoveWorld;
 
     [SerializeField]
     private int _maxAngle = 13;
 
     void Update()
     {
-        tiltPlatform();
+        if (doMoveWorld) tiltPlatform();
     }
 
     //tilting the platform
@@ -53,5 +54,10 @@ public class MoveWorld : MonoBehaviour {
     {
         get { return _backward; }
         set { _backward = value; }
+    }
+    public bool DoMoveWorld
+    {
+        get { return doMoveWorld; }
+        set { doMoveWorld = value; }
     }
 }
