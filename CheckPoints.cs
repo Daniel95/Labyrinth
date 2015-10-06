@@ -32,7 +32,6 @@ public class CheckPoints : MonoBehaviour {
 
     private void goToLastCheckpoint(GameObject checkpoint)
     {
-		Debug.Log (checkpoint);
 		this.transform.position = new Vector3(checkpoint.transform.position.x, checkpoint.transform.position.y + 2, checkpoint.transform.position.z);
     }
 }

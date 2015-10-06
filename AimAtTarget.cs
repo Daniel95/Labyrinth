@@ -3,13 +3,14 @@ using System.Collections;
 
 public class AimAtTarget : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
+	[SerializeField]
+	private Transform target;
+
+	[SerializeField]
+	private Transform turret;
+
 	// Update is called once per frame
 	void Update () {
-	
+		turret.LookAt (transform.position);
 	}
 }
