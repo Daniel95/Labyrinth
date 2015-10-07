@@ -3,32 +3,35 @@ using System.Collections;
 
 public class StartCinematic : MonoBehaviour {
     [SerializeField]
-    private Transform GoToPoint;
-    private Vector3 offset;
-    private Vector3 rotationOffset;
-    private MoveWorld mWorld;
+    private Transform GoToPoint; //The point it needs to travel to
+    private Vector3 offset; //The diverence between the amera position and the destination point
+    private Vector3 rotationOffset; //The divrerence between the camera rotation and the destination rotation
+    private MoveWorld mWorld; //Move world script
 
-    private float moveSpeed = 1.01f;
-    private float goSpeed;
-    private bool gointToPlayer;
+    private float moveSpeed = 1.01f; //The speed at witch the animation moves
+    private float goSpeed; //Used to stabilise the speed
+    private bool gointToPlayer, doCinematic; //toggle bools
 
     void Start() {
-
-        newVals();
-        goSpeed = moveSpeed;
         mWorld = GameObject.Find("World").GetComponent<MoveWorld>();
-        mWorld.DoMoveWorld = false;
     }
 
-    void newVals()
+    void Update() {
+        if (doCinematic) DoCinematic();
+    }
+
+    //resetting the value's for going to the next point
+    public void newVals(Transform NewPoint)
     {
-        //resetting the value's for going to the next point
-        goSpeed = moveSpeed;
+        //Setting the states for the cinematic
+        GoToPoint = NewPoint; goSpeed = moveSpeed; doCinematic = true; mWorld.DoMoveWorld = false;
+        //Calculating the offset position
         offset = (transform.position - GoToPoint.position);
+        //Calculating the rotation offset
         rotationOffset = (transform.eulerAngles - GoToPoint.transform.eulerAngles);
     }
 	
-	void Update () {
+	void DoCinematic () {
         //Making the speed a bit more constand
         goSpeed += goSpeed / 1000f;
         
@@ -43,19 +46,20 @@ public class StartCinematic : MonoBehaviour {
         //going to the next point
         if (Vector3.Distance(transform.position, GoToPoint.position) == 0)
         {
-            if (gointToPlayer) { mWorld.DoMoveWorld = true; Destroy(this); }
+            //End cinematic
+            if (gointToPlayer) { mWorld.DoMoveWorld = true; doCinematic = false; }
             else
             {
+                //Prepare for flying to the player
                 if (GoToPoint.gameObject.GetComponent<NextPoint>().newPos.gameObject.tag == "Player")
                 {
-                    GoToPoint = GetComponent<CameraFollow>().PlayerCam;
-                    goSpeed = moveSpeed; newVals(); gointToPlayer = true;
+                    newVals(GetComponent<CameraFollow>().PlayerCam); gointToPlayer = true;
                 }
+                //Prepare going to the next point
                 else
                 {
                     Destroy(GoToPoint.gameObject);
-                    GoToPoint = GoToPoint.gameObject.GetComponent<NextPoint>().newPos;
-                    goSpeed = moveSpeed; newVals();
+                    goSpeed = moveSpeed; newVals(GoToPoint.gameObject.GetComponent<NextPoint>().newPos);
                 }
             }
         }

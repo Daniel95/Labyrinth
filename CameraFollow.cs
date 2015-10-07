@@ -5,16 +5,18 @@ public class CameraFollow : MonoBehaviour
 {
 	[SerializeField]
 	private Vector3 distance;
+    [SerializeField]
+    private int rotation;
 	[SerializeField]
 	private Transform player;
     [SerializeField]
     private Transform playerCamPos;
+    
 
     private bool followPlayer = true;
 
     void Awake()
     {
-        Transform pRot = player.transform;
         this.transform.eulerAngles = Vector3.right * 50;
     }
 
@@ -28,7 +30,7 @@ public class CameraFollow : MonoBehaviour
     {
         get { 
             playerCamPos.position = player.position + distance;
-            playerCamPos.eulerAngles = Vector3.right * 60;
+            playerCamPos.eulerAngles = Vector3.right * (rotation + 10);
             return playerCamPos;
         }
         set { playerCamPos = value; }

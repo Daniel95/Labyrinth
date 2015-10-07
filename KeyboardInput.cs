@@ -22,15 +22,16 @@ public class KeyboardInput : MonoBehaviour {
 	void getInputs()
 	{
 		if (Input.GetKeyDown(KeyCode.W)) { mWorld.setForward = true; mPlayer.goMove(1); }
-		else if (Input.GetKeyDown(KeyCode.S)) { mWorld.setBackward = true; mPlayer.goMove(2); }
+		if (Input.GetKeyDown(KeyCode.S)) { mWorld.setBackward = true; mPlayer.goMove(2); }
 		if (Input.GetKeyDown(KeyCode.A)) { mWorld.setLeft = true; mPlayer.goMove(3); }
-		else if (Input.GetKeyDown(KeyCode.D)) { mWorld.setRight = true; mPlayer.goMove(4); }
+		if (Input.GetKeyDown(KeyCode.D)) { mWorld.setRight = true; mPlayer.goMove(4); }
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			if (MoveObjects != null) MoveObjects();
+            GameObject.Find("Main Camera").GetComponent<StartCinematic>().newVals(GameObject.Find("CinematicPoint").transform);
 		}
 		
 		if (Input.GetKeyUp(KeyCode.W)) { mWorld.setForward = false; }
-		else if (Input.GetKeyUp(KeyCode.S)) { mWorld.setBackward = false; }
+		if (Input.GetKeyUp(KeyCode.S)) { mWorld.setBackward = false; }
 		if (Input.GetKeyUp(KeyCode.A)) { mWorld.setLeft = false; }
 		if (Input.GetKeyUp(KeyCode.D)) { mWorld.setRight = false; }
 	}
