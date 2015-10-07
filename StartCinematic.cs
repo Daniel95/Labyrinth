@@ -58,7 +58,6 @@ public class StartCinematic : MonoBehaviour {
                 //Prepare going to the next point
                 else
                 {
-                    Destroy(GoToPoint.gameObject);
                     goSpeed = moveSpeed; newVals(GoToPoint.gameObject.GetComponent<NextPoint>().newPos);
                 }
             }
