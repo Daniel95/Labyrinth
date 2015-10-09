@@ -3,9 +3,9 @@ using System.Collections;
 
 public class Highscore : MonoBehaviour {
 	
-	private string _name = "bert_bankstel";
+	private string _name = "daniel";
 	
-	private int _highScore = 10;
+	private int _highScore = 999999;
 	
 	void Start () {
 		WriteScore ();
@@ -22,7 +22,7 @@ public class Highscore : MonoBehaviour {
 		
 		WWW www = new WWW(url, form);
 		
-		StartCoroutine (WaitForRequest1 (www));
+		StartCoroutine (WaitForRequest (www, false));
 	}
 	
 	public void ReadScore(){
@@ -30,28 +30,18 @@ public class Highscore : MonoBehaviour {
 		
 		WWW www = new WWW(url);
 		
-		StartCoroutine (WaitForRequest2 (www));
+		StartCoroutine (WaitForRequest (www, true));
 	}
 	
-	IEnumerator WaitForRequest1(WWW www){
+	IEnumerator WaitForRequest(WWW www, bool parse){
 		yield return www;
-		
+
+		if(parse) ParseString (www.text);
+
 		if(www.error == null){
-			Debug.Log("WWW OK: " + www.text);
+			//Debug.Log("WWW OK: " + www.text);
 		}else {
-			Debug.Log ("WWW False");
-		}
-	}
-	
-	IEnumerator WaitForRequest2(WWW www){
-		yield return www;
-		
-		ParseString (www.text);
-		
-		if(www.error == null){
-			Debug.Log("WWW OK: " + www.text);
-		}else {
-			Debug.Log ("WWW False");
+			//Debug.Log ("WWW False");
 		}
 	}
 	
@@ -61,6 +51,8 @@ public class Highscore : MonoBehaviour {
 		
 		foreach(string text in myStr) {
 			Debug.Log(text);
+			//here we can put each line that we read into a UI element
+
 		}
 	}
 }
