@@ -15,7 +15,7 @@ public class BallMovement : MonoBehaviour {
 	void Start () {
 		_bounceBack = GetComponent<BounceBack> ();
 		_rb = GetComponent<Rigidbody> ();
-		_rb.AddForce( this.transform.right * 150 );
+		_rb.AddForce( this.transform.right * 300 );
 	}
 
 	void FixedUpdate(){
