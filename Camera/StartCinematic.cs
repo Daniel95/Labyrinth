@@ -2,15 +2,19 @@
 using System.Collections;
 
 public class StartCinematic : MonoBehaviour {
+
+    //execute all this with: 
+    //GameObject.Find("Main Camera").GetComponent<StartCinematic>().newVals(GameObject.Find("NameOfFirstPoint").transform);
+
     [SerializeField]
     private Transform GoToPoint; //The point it needs to travel to
     private Vector3 offset; //The diverence between the amera position and the destination point
     private Vector3 rotationOffset; //The divrerence between the camera rotation and the destination rotation
     private MoveWorld mWorld; //Move world script
-
-    private float moveSpeed = 1.01f; //The speed at witch the animation moves
+    [SerializeField]
+    private float moveSpeed = 10; //The speed at witch the animation moves
     private float goSpeed; //Used to stabilise the speed
-    private bool gointToPlayer, doCinematic; //toggle bools
+    private bool gointToPlayer, doCinematic, skip; //toggle bools
 
     void Start() {
         mWorld = GameObject.Find("World").GetComponent<MoveWorld>();
@@ -24,7 +28,7 @@ public class StartCinematic : MonoBehaviour {
     public void newVals(Transform NewPoint)
     {
         //Setting the states for the cinematic
-        GoToPoint = NewPoint; goSpeed = moveSpeed; doCinematic = true; mWorld.DoMoveWorld = false;
+        GoToPoint = NewPoint; goSpeed = 1; doCinematic = true; mWorld.DoMoveWorld = false;
         //Calculating the offset position
         offset = (transform.position - GoToPoint.position);
         //Calculating the rotation offset
@@ -33,7 +37,7 @@ public class StartCinematic : MonoBehaviour {
 	
 	void DoCinematic () {
         //Making the speed a bit more constand
-        goSpeed += goSpeed / 1000f;
+        goSpeed += goSpeed / (moveSpeed * 100);
         
         //changing the distance the camera needs to travel to the position
         offset /= goSpeed;
@@ -44,8 +48,9 @@ public class StartCinematic : MonoBehaviour {
         transform.eulerAngles = rotationOffset + GoToPoint.eulerAngles;
 
         //going to the next point
-        if (Vector3.Distance(transform.position, GoToPoint.position) == 0)
+        if (Vector3.Distance(transform.position, GoToPoint.position) == 0 || skip)
         {
+            if (skip) transform.eulerAngles = GoToPoint.eulerAngles; transform.position = GoToPoint.position; skip = false;
             //End cinematic
             if (gointToPlayer) { mWorld.DoMoveWorld = true; doCinematic = false; }
             else
@@ -58,9 +63,14 @@ public class StartCinematic : MonoBehaviour {
                 //Prepare going to the next point
                 else
                 {
-                    goSpeed = moveSpeed; newVals(GoToPoint.gameObject.GetComponent<NextPoint>().newPos);
+                    goSpeed = 1; newVals(GoToPoint.gameObject.GetComponent<NextPoint>().newPos);
                 }
             }
         }
 	}
+
+    public bool Skip {
+        get { return skip; }
+        set { skip = value; }
+    }
 }

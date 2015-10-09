@@ -4,6 +4,7 @@ using System.Collections;
 public class KeyboardInput : MonoBehaviour {
 	private MoveWorld mWorld;
 	private PlayerMovement mPlayer;
+    private StartCinematic sCinematic;
 	
 	public delegate void Action();
 	public static event Action MoveObjects;
@@ -12,6 +13,7 @@ public class KeyboardInput : MonoBehaviour {
 	{
 		mWorld = GetComponent<MoveWorld>();
 		mPlayer = GameObject.Find("Player").GetComponent<PlayerMovement>();
+        sCinematic = GameObject.Find("Main Camera").GetComponent<StartCinematic>();
 	}
 	
 	void Update()
@@ -27,7 +29,9 @@ public class KeyboardInput : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.D)) { mWorld.setRight = true; mPlayer.goMove(4); }
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			if (MoveObjects != null) MoveObjects();
-            GameObject.Find("Main Camera").GetComponent<StartCinematic>().newVals(GameObject.Find("CinematicPoint").transform);
+            sCinematic.Skip = true;
+
+
 		}
 		
 		if (Input.GetKeyUp(KeyCode.W)) { mWorld.setForward = false; }

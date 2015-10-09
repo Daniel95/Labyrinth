@@ -6,17 +6,14 @@ public class MoveWorld : MonoBehaviour {
     private bool _forward, _backward, _left, _right;
     private float _tLeft, _tForward;
     private int _tSpeed = 2;
-<<<<<<< HEAD:Object Controll/MoveWorld.cs
-=======
     private bool doMoveWorld = true;
->>>>>>> origin/master:MoveWorld.cs
 
     [SerializeField]
     private int _maxAngle = 13;
 
     void Update()
     {
-        tiltPlatform();
+        if (doMoveWorld) tiltPlatform();
     }
 
     //tilting the platform
@@ -58,15 +55,12 @@ public class MoveWorld : MonoBehaviour {
         get { return _backward; }
         set { _backward = value; }
     }
-<<<<<<< HEAD:Object Controll/MoveWorld.cs
-=======
     public bool DoMoveWorld
     {
         get { return doMoveWorld; }
         set {
-        transform.eulerAngles = new Vector3(0, 0, 0);
+        transform.eulerAngles = Vector3.zero;
         doMoveWorld = value;
         }
     }
->>>>>>> origin/master:MoveWorld.cs
 }
