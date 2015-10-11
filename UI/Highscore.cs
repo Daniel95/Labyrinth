@@ -6,17 +6,21 @@ public class Highscore : MonoBehaviour {
 	private string _name = "daniel";
 	
 	private int _highScore = 999999;
-	
+
+	private int _totalPlays;
+
+	private int _totalDeads = 2;
+
 	void Start () {
 		WriteScore ();
-		ReadScore ();
+		//ReadScore ();
 	}
 	
 	public void WriteScore(){
 		string url = "http://14411.hosts.ma-cloud.nl/labyrinth/write.php";
 		
 		WWWForm form = new WWWForm();
-		
+
 		form.AddField("name", _name);
 		form.AddField("score", " " + _highScore);
 		
@@ -37,6 +41,7 @@ public class Highscore : MonoBehaviour {
 		yield return www;
 
 		if(parse) ParseString (www.text);
+		//Debug.Log (www.text [0]);
 
 		if(www.error == null){
 			//Debug.Log("WWW OK: " + www.text);
@@ -52,7 +57,13 @@ public class Highscore : MonoBehaviour {
 		foreach(string text in myStr) {
 			Debug.Log(text);
 			//here we can put each line that we read into a UI element
+			_totalPlays++;
 
 		}
+		Debug.Log (_totalPlays - 1 + " Times Played");
+
+	}
+
+	void FindAndReplaceText(){
 	}
 }

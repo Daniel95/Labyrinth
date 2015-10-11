@@ -6,9 +6,9 @@ public class SpawnObj : MonoBehaviour
 	[SerializeField]
 	private bool timer = true;//time between spawns
 	[SerializeField]
-	private float spawnTime = 3f;//time between spawns
+	private float spawnTime;//time between spawns
 	[SerializeField]
-	private float spawnDelay = 3f; //time for spawntime to start
+	private float spawnDelay; //time for spawntime to start
 	[SerializeField]
 	private GameObject[] obstacle;
 	[SerializeField]

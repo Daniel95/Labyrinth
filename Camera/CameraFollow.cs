@@ -29,10 +29,10 @@ public class CameraFollow : MonoBehaviour
     public Transform PlayerCam
     {
         get { 
-            playerCamPos.position = player.position + distance;
-            playerCamPos.eulerAngles = Vector3.right * (rotation + 10);
-            return playerCamPos;
+			playerCamPos.position = player.position + distance;
+			playerCamPos.eulerAngles = Vector3.right * (rotation + 10);
+			return playerCamPos;
         }
-        set { playerCamPos = value; }
+		set { playerCamPos = value; }
     }
 }
