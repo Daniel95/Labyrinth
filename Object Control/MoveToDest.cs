@@ -9,9 +9,12 @@ public class MoveToDest : MonoBehaviour
 	private Transform endSpot;
 	[SerializeField]
 	private Transform originSpot;
-
+	[SerializeField]
+	private bool _automatic;
+	
 	private Transform _destination;
 	private bool _activated;
+	private bool _onCommand;
 
 	void Start(){
 		_destination = originSpot;
@@ -36,8 +39,11 @@ public class MoveToDest : MonoBehaviour
 	}
 
 	public Vector3 GoTo(Vector3 currentPos) {
-		var pos = Vector3.MoveTowards(currentPos, _destination.position, speed);
-		if(pos == _destination.position) _activated = false;
+		var pos = Vector3.MoveTowards(currentPos, _destination.position, speed / 10);
+		if (pos == _destination.position) {
+			_activated = false;
+			if(_automatic) SetActive();
+		}
 		return pos;
 	}
 	
