@@ -6,7 +6,6 @@ public class StartCinematic : MonoBehaviour {
     //execute all this with: 
     //GameObject.Find("Main Camera").GetComponent<StartCinematic>().newVals(GameObject.Find("NameOfFirstPoint").transform);
 
-    [SerializeField]
     private Transform GoToPoint; //The point it needs to travel to
     private Vector3 offset; //The diverence between the amera position and the destination point
     private Vector3 rotationOffset; //The divrerence between the camera rotation and the destination rotation
@@ -36,6 +35,7 @@ public class StartCinematic : MonoBehaviour {
     }
 	
 	void DoCinematic () {
+        print(GoToPoint);
         //Making the speed a bit more constand
         goSpeed += goSpeed / (moveSpeed * 100);
         
@@ -52,7 +52,7 @@ public class StartCinematic : MonoBehaviour {
         {
             if (skip) transform.eulerAngles = GoToPoint.eulerAngles; transform.position = GoToPoint.position; skip = false;
             //End cinematic
-            if (gointToPlayer) { mWorld.DoMoveWorld = true; doCinematic = false; }
+            if (gointToPlayer) { mWorld.DoMoveWorld = true; doCinematic = false; gointToPlayer = false; skip = false; }
             else
             {
                 //Prepare for flying to the player

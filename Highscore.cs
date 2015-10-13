@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Highscore : MonoBehaviour {
 	
-	private string _name = "bert_bankstel";
+	private string _name = "Geert gordijn";
 	
 	private int _highScore = 10;
 	
