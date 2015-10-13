@@ -17,7 +17,7 @@ public class CameraFollow : MonoBehaviour
 
     void Awake()
     {
-        this.transform.eulerAngles = Vector3.right * 50;
+		this.transform.eulerAngles = Vector3.right * rotation;
     }
 
     void Update()

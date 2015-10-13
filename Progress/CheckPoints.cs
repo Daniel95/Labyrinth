@@ -5,8 +5,8 @@ public class CheckPoints : MonoBehaviour {
 
 	private GameObject _start;
 
-    [SerializeField]
-    private GameObject CinematicPoint;
+	[SerializeField]
+	private Transform _cinematicPoint;
 
 	private SpawnObj _spawnObj;
 
@@ -21,10 +21,12 @@ public class CheckPoints : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision obj) {
+
 		if (obj.gameObject.tag == "CheckPoint") {
 			_currentCheckPoint = obj.gameObject;
-            GameObject.Find("Main Camera").GetComponent<StartCinematic>().newVals(CinematicPoint.transform);
 
+			_cinematicPoint = obj.gameObject.GetComponent<NextPoint>().newPos;
+			GameObject.Find("Main Camera").GetComponent<StartCinematic>().newVals(_cinematicPoint);
 		}
 	}
 

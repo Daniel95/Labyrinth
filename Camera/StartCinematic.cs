@@ -51,7 +51,7 @@ public class StartCinematic : MonoBehaviour {
         {
             if (skip) transform.eulerAngles = GoToPoint.eulerAngles; transform.position = GoToPoint.position; skip = false;
             //End cinematic
-            if (gointToPlayer) { mWorld.DoMoveWorld = true; doCinematic = false; }
+			if (gointToPlayer) { mWorld.DoMoveWorld = true; doCinematic = false; gointToPlayer = false; skip = false;}
             else
             {
                 //Prepare for flying to the player
