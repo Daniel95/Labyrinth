@@ -22,6 +22,7 @@ public class MoveToDest : MonoBehaviour
 
 	void Update()
 	{
+        //checked als het object activeerd, dan verplaatst naar de endspot.
 		if (_activated) {
 			var move = GoTo (transform.position);
 			transform.position = move;
