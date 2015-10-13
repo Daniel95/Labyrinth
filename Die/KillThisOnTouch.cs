@@ -4,27 +4,20 @@ using System.Collections;
 public class KillThisOnTouch: MonoBehaviour {
 
 	[SerializeField]
-	private string[] _Cobjects;//coll objs
+	private string[] collTags;//coll objs
 
 	[SerializeField]
-	private string[] _Tobjects;//trigger objs
+	private string[] TrigTags;//trigger objs
 
 	void OnCollisionEnter(Collision other) {
-		if (_Cobjects [_Cobjects.Length - 1] == "all") {
-			Destroy (this.gameObject);
-		} else for(int i = 0; i < _Cobjects.Length; i++)
-		{
-			if (other.gameObject.tag == _Cobjects[i]) Destroy (this.gameObject);
+		foreach(string cTag in collTags){
+			if (other.gameObject.tag == cTag || cTag == "All") Destroy (this.gameObject);
 		}
 	}
 
 	void OnTriggerEnter(Collider other) {
-		//if (_Tobjects [_Tobjects.Length - 1] == "all") {
-			//Destroy (this.gameObject);
-		//} else for(int i = 0; i < _Tobjects.Length; i++)
-		for(int i = 0; i < _Tobjects.Length; i++)
-		{
-			if (other.gameObject.tag == _Tobjects[i]) Destroy (this.gameObject);
+		foreach(string tTag in TrigTags){
+			if (other.gameObject.tag == tTag || tTag == "All") Destroy (this.gameObject);
 		}
 	}
 }

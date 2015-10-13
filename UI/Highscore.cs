@@ -3,26 +3,36 @@ using System.Collections;
 
 public class Highscore : MonoBehaviour {
 	
+<<<<<<< HEAD:Highscore.cs
 	private string _name = "Geert gordijn";
 	
 	private int _highScore = 10;
+=======
+	private string _name = "daniel";
+>>>>>>> ad0ea6cfdfbf77b2c073f3829680d7a37d8e19ea:UI/Highscore.cs
 	
+	private int _highScore = 999999;
+
+	private int _totalPlays;
+
+	private int _totalDeads = 2;
+
 	void Start () {
 		WriteScore ();
-		ReadScore ();
+		//ReadScore ();
 	}
 	
 	public void WriteScore(){
 		string url = "http://14411.hosts.ma-cloud.nl/labyrinth/write.php";
 		
 		WWWForm form = new WWWForm();
-		
+
 		form.AddField("name", _name);
 		form.AddField("score", " " + _highScore);
 		
 		WWW www = new WWW(url, form);
 		
-		StartCoroutine (WaitForRequest1 (www));
+		StartCoroutine (WaitForRequest (www, false));
 	}
 	
 	public void ReadScore(){
@@ -30,28 +40,19 @@ public class Highscore : MonoBehaviour {
 		
 		WWW www = new WWW(url);
 		
-		StartCoroutine (WaitForRequest2 (www));
+		StartCoroutine (WaitForRequest (www, true));
 	}
 	
-	IEnumerator WaitForRequest1(WWW www){
+	IEnumerator WaitForRequest(WWW www, bool parse){
 		yield return www;
-		
+
+		if(parse) ParseString (www.text);
+		//Debug.Log (www.text [0]);
+
 		if(www.error == null){
-			Debug.Log("WWW OK: " + www.text);
+			//Debug.Log("WWW OK: " + www.text);
 		}else {
-			Debug.Log ("WWW False");
-		}
-	}
-	
-	IEnumerator WaitForRequest2(WWW www){
-		yield return www;
-		
-		ParseString (www.text);
-		
-		if(www.error == null){
-			Debug.Log("WWW OK: " + www.text);
-		}else {
-			Debug.Log ("WWW False");
+			//Debug.Log ("WWW False");
 		}
 	}
 	
@@ -61,6 +62,14 @@ public class Highscore : MonoBehaviour {
 		
 		foreach(string text in myStr) {
 			Debug.Log(text);
+			//here we can put each line that we read into a UI element
+			_totalPlays++;
+
 		}
+		Debug.Log (_totalPlays - 1 + " Times Played");
+
+	}
+
+	void FindAndReplaceText(){
 	}
 }
