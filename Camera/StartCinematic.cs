@@ -4,7 +4,7 @@ using System.Collections;
 public class StartCinematic : MonoBehaviour {
 
     //execute all this with: 
-    //GameObject.Find("Main Camera").GetComponent<StartCinematic>().newVals(GameObject.Find("NameOfFirstPoint").transform);
+	//GameObject.Find("Main Camera").GetComponent<StartCinematic>().newVals(GameObject.Find("CinematicStart").transform);
 	
     private Transform GoToPoint; //The point it needs to travel to
     private Vector3 offset; //The diverence between the amera position and the destination point
@@ -27,6 +27,7 @@ public class StartCinematic : MonoBehaviour {
     public void newVals(Transform NewPoint)
     {
         //Setting the states for the cinematic
+        Debug.Log(NewPoint);
         GoToPoint = NewPoint; goSpeed = 1; doCinematic = true; mWorld.DoMoveWorld = false;
         //Calculating the offset position
         offset = (transform.position - GoToPoint.position);

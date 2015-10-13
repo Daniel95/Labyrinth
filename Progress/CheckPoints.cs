@@ -17,7 +17,11 @@ public class CheckPoints : MonoBehaviour {
 	void Start () {
 		_start = GameObject.Find("Start");
 		_rb = GetComponent<Rigidbody> ();
+        _currentCheckPoint = _start;
 		goToLastCheckpoint(_start);
+
+        _cinematicPoint = _start.GetComponent<NextPoint>().newPos;
+        GameObject.Find("Main Camera").GetComponent<StartCinematic>().newVals(_cinematicPoint);
 	}
 
 	void OnCollisionEnter(Collision obj) {
