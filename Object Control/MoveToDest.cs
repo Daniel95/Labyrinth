@@ -24,7 +24,7 @@ public class MoveToDest : MonoBehaviour
 	{
         //checked als het object activeerd, dan verplaatst naar de endspot.
 		if (_activated) {
-			var move = GoTo (transform.position);
+			var move = GoToDest (transform.position);
 			transform.position = move;
 		}
 	}
@@ -39,7 +39,7 @@ public class MoveToDest : MonoBehaviour
 		KeyboardInput.MoveObjects -= SetActive;
 	}
 
-	public Vector3 GoTo(Vector3 currentPos) {
+	public Vector3 GoToDest(Vector3 currentPos) {
 		var pos = Vector3.MoveTowards(currentPos, _destination.position, speed / 10);
 		if (pos == _destination.position) {
 			_activated = false;
