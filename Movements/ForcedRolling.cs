@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BallMovement : MonoBehaviour {
+public class ForcedRolling : MonoBehaviour {
 
 	[SerializeField]
 	private float speed;

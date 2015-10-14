@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BulletMovement : MonoBehaviour {
+public class Translate : MonoBehaviour {
 
 	[SerializeField]
 	private float _xSpeed;
