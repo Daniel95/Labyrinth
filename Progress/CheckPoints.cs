@@ -19,10 +19,7 @@ public class CheckPoints : MonoBehaviour {
 		_rb = GetComponent<Rigidbody> ();
         _currentCheckPoint = _start;
 		goToLastCheckpoint(_start);
-		Debug.Log ("zeg");
-        _cinematicPoint = _start.GetComponent<NextPoint>().newPos;
-        GameObject.Find("Main Camera").GetComponent<StartCinematic>().newVals(_cinematicPoint);
-	}
+    }
 
 	void OnCollisionEnter(Collision obj) {
 
@@ -31,7 +28,12 @@ public class CheckPoints : MonoBehaviour {
 			Debug.Log("badthings");
 			_cinematicPoint = obj.gameObject.GetComponent<NextPoint>().newPos;
 			GameObject.Find("Main Camera").GetComponent<StartCinematic>().newVals(_cinematicPoint);
-		}
+        }
+        else
+        {
+            _cinematicPoint = _start.GetComponent<NextPoint>().newPos;
+            GameObject.Find("Main Camera").GetComponent<StartCinematic>().newVals(_cinematicPoint);
+        }
 	}
 
 	public void Died(string cause){
