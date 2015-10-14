@@ -26,8 +26,8 @@ public class StartCinematic : MonoBehaviour {
     //resetting the value's for going to the next point
     public void newVals(Transform NewPoint)
     {
-		print ("hallo");
         //Setting the states for the cinematic
+        Debug.Log(NewPoint);
         GoToPoint = NewPoint; goSpeed = 1; doCinematic = true; mWorld.DoMoveWorld = false;
         //Calculating the offset position
         offset = (transform.position - GoToPoint.position);

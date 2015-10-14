@@ -17,18 +17,14 @@ public class CheckPoints : MonoBehaviour {
 	void Start () {
 		_start = GameObject.Find("Start");
 		_rb = GetComponent<Rigidbody> ();
-        _currentCheckPoint = _start;
 		goToLastCheckpoint(_start);
-		Debug.Log ("zeg");
-        _cinematicPoint = _start.GetComponent<NextPoint>().newPos;
-        GameObject.Find("Main Camera").GetComponent<StartCinematic>().newVals(_cinematicPoint);
 	}
 
 	void OnCollisionEnter(Collision obj) {
 
-		if (obj.gameObject.tag == "CheckPoint" && obj.gameObject.name != "Start") {
+		if (obj.gameObject.tag == "CheckPoint") {
 			_currentCheckPoint = obj.gameObject;
-			Debug.Log("badthings");
+
 			_cinematicPoint = obj.gameObject.GetComponent<NextPoint>().newPos;
 			GameObject.Find("Main Camera").GetComponent<StartCinematic>().newVals(_cinematicPoint);
 		}
