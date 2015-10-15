@@ -10,6 +10,7 @@ public class StartCinematic : MonoBehaviour {
     private Vector3 offset; //The diverence between the amera position and the destination point
     private Vector3 rotationOffset; //The divrerence between the camera rotation and the destination rotation
     private MoveWorld mWorld; //Move world script
+    private PlayerMovement pMov;
     [SerializeField]
     private float moveSpeed = 10; //The speed at witch the animation moves
     private float goSpeed; //Used to stabilise the speed
@@ -17,6 +18,7 @@ public class StartCinematic : MonoBehaviour {
 
     void Start() {
         mWorld = GameObject.Find("World").GetComponent<MoveWorld>();
+        pMov = GameObject.Find("Player").GetComponent<PlayerMovement>();
     }
 
     void Update() {
@@ -26,9 +28,8 @@ public class StartCinematic : MonoBehaviour {
     //resetting the value's for going to the next point
     public void newVals(Transform NewPoint)
     {
-		print ("hallo");
         //Setting the states for the cinematic
-        GoToPoint = NewPoint; goSpeed = 1; doCinematic = true; mWorld.DoMoveWorld = false;
+        GoToPoint = NewPoint; goSpeed = 1; doCinematic = true; mWorld.DoMoveWorld = false; pMov.stopPlayer();
         //Calculating the offset position
         offset = (transform.position - GoToPoint.position);
         //Calculating the rotation offset

@@ -29,5 +29,11 @@ public class PlayerMovement : MonoBehaviour {
 		else if (moveDir == 3) _rb.velocity = new Vector3(0, _rb.velocity.y, _rb.velocity.z);
 		else if (moveDir == 4) _rb.velocity = new Vector3(0, _rb.velocity.y, _rb.velocity.z);
     }  
+
+    public void stopPlayer()
+    {
+        _rb.velocity = Vector3.zero;
+        _rb.angularVelocity = Vector3.zero;
+    }
     
 }
