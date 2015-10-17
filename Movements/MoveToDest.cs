@@ -6,18 +6,23 @@ public class MoveToDest : MonoBehaviour
 	[SerializeField]
 	private float speed;
 	[SerializeField]
+	private bool delay;
+	[SerializeField]
 	private Transform endSpot;
 	[SerializeField]
 	private Transform originSpot;
 	[SerializeField]
 	private bool _automatic;
+	[SerializeField]
+	private bool _controllable;
 	
 	private Transform _destination;
 	private bool _activated;
-	private bool _onCommand;
+	//private bool _onCommand;
 
 	void Start(){
 		_destination = originSpot;
+		_activated = true;
 	}
 
 	void Update()
@@ -30,12 +35,12 @@ public class MoveToDest : MonoBehaviour
 	
 	void OnEnable()
 	{
-		KeyboardInput.MoveObjects += SetActive;
+		if(_controllable) KeyboardInput.MoveObjects += SetActive;
 	}
 	
 	void OnDiable()
 	{
-		KeyboardInput.MoveObjects -= SetActive;
+		if(_controllable) KeyboardInput.MoveObjects -= SetActive;
 	}
 
 	public Vector3 GoToDest(Vector3 currentPos) {

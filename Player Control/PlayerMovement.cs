@@ -24,10 +24,22 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	public void goMove (int moveDir) {
-		if (moveDir == 1) _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y, 0);
-		else if (moveDir == 2) _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y, 0);
-		else if (moveDir == 3) _rb.velocity = new Vector3(0, _rb.velocity.y, _rb.velocity.z);
-		else if (moveDir == 4) _rb.velocity = new Vector3(0, _rb.velocity.y, _rb.velocity.z);
+		if (moveDir == 1) _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y, _rb.velocity.z / 2);
+		else if (moveDir == 2) _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y, _rb.velocity.z / 2);
+		else if (moveDir == 3) _rb.velocity = new Vector3(_rb.velocity.x / 2, _rb.velocity.y, _rb.velocity.z);
+		else if (moveDir == 4) _rb.velocity = new Vector3(_rb.velocity.x / 2, _rb.velocity.y, _rb.velocity.z);
+
+
+		//if (moveDir == 1) _rb.velocity = new Vector3(1, 0, 0);
+		//else if (moveDir == 2) _rb.velocity = new Vector3(0, 0, 1);
+		//else if (moveDir == 3) _rb.velocity = new Vector3(1, 0, 0);
+		//else if (moveDir == 4) _rb.velocity = new Vector3(1,0 , 0);
     }  
+
+    public void stopPlayer()
+    {
+        _rb.velocity = Vector3.zero;
+        _rb.angularVelocity = Vector3.zero;
+    }
     
 }

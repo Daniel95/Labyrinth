@@ -59,8 +59,8 @@ public class MoveWorld : MonoBehaviour {
     {
         get { return doMoveWorld; }
         set {
-        transform.eulerAngles = Vector3.zero;
-        doMoveWorld = value;
+            doMoveWorld = value;
+            transform.eulerAngles = Vector3.zero;
         }
     }
 }
