@@ -18,7 +18,6 @@ public class MoveToDest : MonoBehaviour
 	
 	private Transform _destination;
 	private bool _activated;
-	//private bool _onCommand;
 
 	void Start(){
 		_destination = originSpot;
@@ -28,7 +27,7 @@ public class MoveToDest : MonoBehaviour
 	void Update()
 	{
 		if (_activated) {
-			var move = GoToDest (transform.position);
+			var move = GoToDest (transform.position, new Vector3());
 			transform.position = move;
 		}
 	}
@@ -43,8 +42,8 @@ public class MoveToDest : MonoBehaviour
 		if(_controllable) KeyboardInput.MoveObjects -= SetActive;
 	}
 
-	public Vector3 GoToDest(Vector3 currentPos) {
-		var pos = Vector3.MoveTowards(currentPos, _destination.position, speed / 10);
+	public Vector3 GoToDest(Vector3 currentPos, Vector3 distance) {
+		var pos = Vector3.MoveTowards(currentPos, _destination.position + distance, speed / 10);
 		if (pos == _destination.position) {
 			_activated = false;
 			if(_automatic) SetActive();

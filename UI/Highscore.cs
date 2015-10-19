@@ -3,26 +3,24 @@ using System.Collections;
 
 public class Highscore : MonoBehaviour {
 	
-	private string _name = "HEYNATHANHOEISHET";
+	private string _name = "Jvik";
 	
 	private int _highScore =  0000;
-
-	private int _totalPlays;
 
 	//private int _totalDeads = 2;
 
 	void Start () {
-		WriteScore ();
+		WriteScore (_highScore);
 		ReadScore ();
 	}
 	
-	public void WriteScore(){
+	public void WriteScore(int score){
 		string url = "http://14411.hosts.ma-cloud.nl/labyrinth/write.php";
 		
 		WWWForm form = new WWWForm();
 
-		form.AddField("name", _name);
-		form.AddField("score", " " + _highScore);
+		form.AddField("score", score);
+		form.AddField("name", " " + _name);
 		
 		WWW www = new WWW(url, form);
 		
@@ -51,26 +49,17 @@ public class Highscore : MonoBehaviour {
 	}
 	
 	void ParseString(string incText){
-		
-		//string[] myStr = incText.Split('\n');
-
-		//lege regels weghalen met trim
-		//score vervangen met json
-
-		//foreach(string text in myStr) {
-
-			//Debug.Log(text.Trim());
-
-
-
-			//here we can put each line that we read into a UI element
-			_totalPlays++;
-
-		//}
-		//Debug.Log (_totalPlays - 1 + " Times Played");
-
+		Debug.Log (incText);
+		string[] myStr = incText.Split('\n');
+		foreach(string text in myStr) {
+			string[] myStr2 = text.Split(' ');
+			foreach(string text2 in myStr2) {
+				//Debug.Log(text2.Trim());
+			}
+		}
 	}
 
 	void FindAndReplaceText(){
+
 	}
 }

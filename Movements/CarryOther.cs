@@ -16,7 +16,8 @@ public class CarryOther : MonoBehaviour {
 		foreach (string tag in objsToInteract) {
 			if (obj.gameObject.tag == tag) {
 				if(_moveToDest.checkActive) {
-					var move = _moveToDest.GoToDest (obj.transform.position);
+					var distance = obj.transform.position - transform.position;
+					var move = _moveToDest.GoToDest (obj.transform.position,distance);
 					obj.transform.position = move;
 				}
 			}

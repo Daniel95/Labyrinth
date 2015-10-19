@@ -4,7 +4,7 @@ using System.Collections;
 public class WorldGravity : MonoBehaviour {
 
 	[SerializeField]
-	private float gravityIncrement;
+	private float gravityIncrement = 1;
 
 	private float _gravity;
 
