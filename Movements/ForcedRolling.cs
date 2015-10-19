@@ -7,7 +7,7 @@ public class ForcedRolling : MonoBehaviour {
 	private float speed;
 	[SerializeField]
 	private int bounceStrength;
-	
+
 	private BounceBack _bounceBack;
 	private Rigidbody _rb;
 
@@ -15,15 +15,16 @@ public class ForcedRolling : MonoBehaviour {
 	void Start () {
 		_bounceBack = GetComponent<BounceBack> ();
 		_rb = GetComponent<Rigidbody> ();
-		_rb.AddForce( this.transform.right * 300 );
+
+		_rb.AddForce( transform.right * 300 );
 	}
 
 	void FixedUpdate(){
-		_rb.AddForce( this.transform.right * speed );
+		_rb.AddForce( transform.right * speed );
 	}
 
 	void OnCollisionEnter(Collision obj) {
-		if (obj.collider.gameObject.transform.position.y >= this.transform.position.y) {
+		if (obj.gameObject.transform.position.y >= transform.position.y && obj.gameObject.tag != "Ground") {
 			_bounceBack.Bounce(obj, bounceStrength);
 		}
 	}
