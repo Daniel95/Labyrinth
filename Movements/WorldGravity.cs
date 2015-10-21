@@ -17,11 +17,13 @@ public class WorldGravity : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		//gravity increases every frame.
 		_rb.AddForce( transform.up * _gravity );
 		_gravity -= gravityIncrement;
 	}
 
 	void OnCollisionStay(Collision obj) {
+		//if in touch with other objects, gravity is 0;
 		_gravity = 0;
 	}
 }

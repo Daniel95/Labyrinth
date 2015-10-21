@@ -12,7 +12,7 @@ public class KillOtherOnTouch: MonoBehaviour
 				if(cTag == "Player"){
 					var player = other.gameObject.GetComponent<CheckPoints> ();
 					var cause = "A " + this.gameObject.name + " Hit You";
-					player.Died(cause);
+					player.Dead(cause);
 				} else Destroy (other.gameObject);
 			}else if(cTag == "All")Destroy (other.gameObject);
 		}

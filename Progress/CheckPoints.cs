@@ -13,9 +13,15 @@ public class CheckPoints : MonoBehaviour {
 
 	private Rigidbody _rb;
 
+	private UI ui;
+
 	void Start () {
-		_start = GameObject.Find("Start");
 		_rb = GetComponent<Rigidbody> ();
+		_start = GameObject.Find("Start");
+		//var canvas = GameObject.Find("Canvas");
+		//ui = canvas.get
+		ui = GameObject.Find("Canvas").GetComponent<UI>();
+
         _currentCheckPoint = _start;
 		goToLastCheckpoint(_start);
 
@@ -33,8 +39,8 @@ public class CheckPoints : MonoBehaviour {
 		}
 	}
 
-	public void Died(string cause){
-		Debug.Log (cause);
+	public void Dead(string cause){
+		ui.MakeDeathScreen (cause);
 
 		_rb.velocity = _rb.angularVelocity = Vector3.zero;
 		goToLastCheckpoint(_currentCheckPoint);

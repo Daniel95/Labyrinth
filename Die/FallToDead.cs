@@ -8,7 +8,7 @@ public class FallToDead : MonoBehaviour {
 			if (gameObject.tag == "Player") {
 				var player = GetComponent<CheckPoints> ();
 				var cause = "You Fell To Your Dead";
-				player.Died (cause);
+				player.Dead (cause);
 			} else
 				Destroy (this.gameObject);
 		}

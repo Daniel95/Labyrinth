@@ -5,61 +5,66 @@ public class Highscore : MonoBehaviour {
 	
 	private string _name = "Jvik";
 	
-	private int _highScore =  0000;
-
 	//private int _totalDeads = 2;
 
-	void Start () {
-		WriteScore (_highScore);
-		ReadScore ();
+	private bool _loading;
+
+	private UI _ui;
+
+	void Start() {
+		_ui = GetComponent<UI> ();
 	}
-	
-	public void WriteScore(int score){
-		string url = "http://14411.hosts.ma-cloud.nl/labyrinth/write.php";
+
+	public void Score(float time, int lvl){
+		string url = "http://14411.hosts.ma-cloud.nl/labyrinth/score.php";
 		
 		WWWForm form = new WWWForm();
-
-		form.AddField("score", score);
-		form.AddField("name", " " + _name);
+		//var score = time * 1000;
+		form.AddField("lvl", lvl);
+		form.AddField("score", (int)time);
+		form.AddField("name", _name);
 		
 		WWW www = new WWW(url, form);
-		
-		StartCoroutine (WaitForRequest (www, false));
-	}
-	
-	public void ReadScore(){
-		string url = "http://14411.hosts.ma-cloud.nl/labyrinth/read.php";
-		
-		WWW www = new WWW(url);
-		
+
+		//if done loading, send text from file to UI
 		StartCoroutine (WaitForRequest (www, true));
 	}
+
+	public void Deaths(){
+		string url = "http://14411.hosts.ma-cloud.nl/labyrinth/deaths.php";
+		
+		//WWWForm form = new WWWForm();
+		//form.AddField("deaths", deaths);
+		
+		//WWW www = new WWW(url, form);
+		WWW www = new WWW(url);
+
+		//if done loading, send text from file to UI
+		StartCoroutine (WaitForRequest (www, false));
+	}
+
+	/*
+	public void ReadScore(int lvl){
+		string url = "http://14411.hosts.ma-cloud.nl/labyrinth/score.php";
+
+		WWWForm form = new WWWForm();
+		form.AddField("lvl", lvl);
+
+		WWW www = new WWW(url);
+
+		StartCoroutine (WaitForRequest (www, true));
+	}*/
 	
-	IEnumerator WaitForRequest(WWW www, bool parse){
+	IEnumerator WaitForRequest(WWW www, bool scoreUI){
 		yield return www;
 
-		if(parse) ParseString (www.text);
-		//Debug.Log (www.text [0]);
-
-		if(www.error == null){
-			//Debug.Log("WWW OK: " + www.text);
-		}else {
-			//Debug.Log ("WWW False");
-		}
-	}
-	
-	void ParseString(string incText){
-		Debug.Log (incText);
-		string[] myStr = incText.Split('\n');
-		foreach(string text in myStr) {
-			string[] myStr2 = text.Split(' ');
-			foreach(string text2 in myStr2) {
-				//Debug.Log(text2.Trim());
-			}
-		}
+		//Debug.Log("loading");
+		if(scoreUI) _ui.MakeScoreBoard(www.text);
+		else _ui.TotalDeaths(www.text);
 	}
 
-	void FindAndReplaceText(){
-
+	public string SetName
+	{
+		set { _name = value; }
 	}
 }

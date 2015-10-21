@@ -28,12 +28,6 @@ public class PlayerMovement : MonoBehaviour {
 		else if (moveDir == 2) _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y, _rb.velocity.z / 2);
 		else if (moveDir == 3) _rb.velocity = new Vector3(_rb.velocity.x / 2, _rb.velocity.y, _rb.velocity.z);
 		else if (moveDir == 4) _rb.velocity = new Vector3(_rb.velocity.x / 2, _rb.velocity.y, _rb.velocity.z);
-
-
-		//if (moveDir == 1) _rb.velocity = new Vector3(1, 0, 0);
-		//else if (moveDir == 2) _rb.velocity = new Vector3(0, 0, 1);
-		//else if (moveDir == 3) _rb.velocity = new Vector3(1, 0, 0);
-		//else if (moveDir == 4) _rb.velocity = new Vector3(1,0 , 0);
     }  
 
     public void stopPlayer()

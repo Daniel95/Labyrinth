@@ -15,10 +15,14 @@ public class CarryOther : MonoBehaviour {
 	void OnCollisionStay(Collision obj) {
 		foreach (string tag in objsToInteract) {
 			if (obj.gameObject.tag == tag) {
+				//checkActive returns true if the platform is moving.
 				if(_moveToDest.checkActive) {
+					//get the distance of the platform and tagged gameobject.
 					var distance = obj.transform.position - transform.position;
-					var move = _moveToDest.GoToDest (obj.transform.position,distance);
-					obj.transform.position = move;
+
+					//returns the new position for the tagged object.
+					var newPos = _moveToDest.GoToDest (obj.transform.position,distance);
+					obj.transform.position = newPos;
 				}
 			}
 		}
