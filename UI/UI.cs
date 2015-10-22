@@ -4,11 +4,11 @@ using UnityEngine.UI;
 
 public class UI : MonoBehaviour {
 
-	//private GameObject _timerImage;
     private Text _timerText;
 
-	//private GameObject _deadImage;
-	private Text _deadText;
+	private Text _myDeathText;
+
+	private Text _totalDeathText;
 
 	private Highscore _highScore;
 
@@ -16,24 +16,29 @@ public class UI : MonoBehaviour {
 	private bool _counting = true;
 
     private int _myDeaths;
-	private int _totalDeaths;
+	private string _totalDeaths;
 	private string _cause;
 
     void Awake()
     {
 		_highScore = GetComponent<Highscore> ();
 
-		//_timerImage = GameObject.Find("Timer");
 		_timerText = GameObject.Find("Timer").GetComponent<Text>();
 
-		//_deadImage = GameObject.Find("DeathCounter");
-		_deadText = GameObject.Find("DeathCounter").GetComponent<Text>();
+		_myDeathText = GameObject.Find("MyDeathCounter").GetComponent<Text>();
+
+		_totalDeathText = GameObject.Find("TotalDeathCounter").GetComponent<Text>();
+
+		_myDeathText.text = "My Deaths: " + 0;
+		_totalDeathText.text = "All Deaths: " + _totalDeaths;
     }
 
     void Update()
     {
-		if(_counting)_theTime += Time.deltaTime;
-		_timerText.text = "Time: " + (int)_theTime;
+		if (_counting) {
+			_theTime += Time.deltaTime;
+			_timerText.text = "Time: " + (int)_theTime;
+		}
     }
 
 	public void Finished() {
@@ -63,12 +68,17 @@ public class UI : MonoBehaviour {
 	public void MakeDeathScreen(string cause){
 		//Debug.Log (cause);
 		_myDeaths += 1;
-
+		_myDeathText.text = "My Deaths: " + _myDeaths;
 		_highScore.Deaths();
 	}
 
 	public void TotalDeaths(string deaths){
-		Debug.Log (deaths);
-		//_totalDeaths = (int)deaths;
+		_totalDeaths = deaths;
+		_totalDeathText.text = "All Deaths: " + _totalDeaths;
+		Debug.Log (_totalDeaths);
+	}
+
+	public bool SetCounting {
+		set { _counting = value; }
 	}
 }
