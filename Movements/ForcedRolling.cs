@@ -4,8 +4,6 @@ using System.Collections;
 public class ForcedRolling : MonoBehaviour {
 
 	[SerializeField]
-	private float speed;
-	[SerializeField]
 	private int bounceStrength;
 
 	private BounceBack _bounceBack;
@@ -16,11 +14,7 @@ public class ForcedRolling : MonoBehaviour {
 		_bounceBack = GetComponent<BounceBack> ();
 		_rb = GetComponent<Rigidbody> ();
 
-		_rb.AddForce( transform.right * 300 );
-	}
-
-	void FixedUpdate(){
-		_rb.AddForce( transform.right * speed );
+		_rb.AddForce( transform.right * 500 );
 	}
 
 	void OnCollisionEnter(Collision obj) {

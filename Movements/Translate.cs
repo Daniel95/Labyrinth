@@ -11,6 +11,6 @@ public class Translate : MonoBehaviour {
 	private float _zSpeed;
 	
 	void Update () {
-		transform.Translate(_xSpeed, _ySpeed, _zSpeed);
+		transform.Translate(_xSpeed * Time.deltaTime, _ySpeed * Time.deltaTime, _zSpeed * Time.deltaTime);
 	}
 }

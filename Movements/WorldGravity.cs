@@ -4,7 +4,7 @@ using System.Collections;
 public class WorldGravity : MonoBehaviour {
 
 	[SerializeField]
-	private float gravityIncrement = 1;
+	private float gravityIncrement = 100;
 
 	private float _gravity;
 
@@ -18,8 +18,8 @@ public class WorldGravity : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		//gravity increases every frame.
-		_rb.AddForce( transform.up * _gravity );
-		_gravity -= gravityIncrement;
+		_rb.AddForce( transform.up * _gravity * Time.fixedDeltaTime);
+		_gravity -= gravityIncrement * Time.fixedDeltaTime;
 	}
 
 	void OnCollisionStay(Collision obj) {

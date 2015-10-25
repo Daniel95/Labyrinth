@@ -51,7 +51,7 @@ public class MoveToDest : MonoBehaviour
 		return pos;
 	}
 	
-	void SetActive()
+	public void SetActive()
 	{
 		_activated = true;
 		if(_destination == originSpot) _destination = endSpot;
@@ -61,4 +61,9 @@ public class MoveToDest : MonoBehaviour
 	public bool checkActive {
 		get {return _activated; }
 	}
+
+    public void SetDest(bool backToOrigin) {
+        if (backToOrigin) _destination = originSpot;
+        else _destination = endSpot;
+    }
 }

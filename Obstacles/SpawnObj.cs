@@ -17,9 +17,10 @@ public class SpawnObj : MonoBehaviour
 
 	void Start ()
 	{
-		// Call spawn repeatitly when timer is over
-		if(timer)InvokeRepeating("Spawn", spawnDelay, spawnTime);
-		_world = GameObject.Find ("World");
+        _world = GameObject.Find("World");
+
+        // Call spawn repeatitly when timer is over
+        if (timer)InvokeRepeating("Spawn", spawnDelay, spawnTime);
 	}
 
 	//public void Spawn (GameObject _spawnPoint)
@@ -28,5 +29,6 @@ public class SpawnObj : MonoBehaviour
 		int obstacleIndex = Random.Range(0, obstacle.Length);
 		var Projectile = Instantiate (obstacle[obstacleIndex], spawnPoint.transform.position, spawnPoint.transform.rotation) as GameObject;
 		Projectile.transform.parent = _world.gameObject.transform;
+
 	}
 }
