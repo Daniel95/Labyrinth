@@ -5,11 +5,16 @@ public class MoveWorld : MonoBehaviour {
     //t means tilt
     private bool _forward, _backward, _left, _right;
     private float _tLeft, _tForward;
-    private int _tSpeed = 2;
+    private float _tSpeed;
     private bool doMoveWorld = true;
 
     [SerializeField]
     private int _maxAngle = 13;
+
+    void Start()
+    {
+        _tSpeed = 100 * Time.deltaTime;
+    }
 
     void Update()
     {
