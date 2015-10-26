@@ -15,7 +15,7 @@ public class UI : MonoBehaviour {
     private float _theTime;
 	private bool _counting = true;
 
-    private int _myDeaths;
+    private int _myDeaths = 0;
 	private string _totalDeaths;
 	private string _cause;
 
@@ -32,9 +32,18 @@ public class UI : MonoBehaviour {
 		_myDeathText = GameObject.Find("MyDeathCounter").GetComponent<Text>();
 
 		_totalDeathText = GameObject.Find("TotalDeathCounter").GetComponent<Text>();
+    }
 
+<<<<<<< HEAD
 		_myDeathText.text = "My Deaths: " + _myDeaths;
 		_totalDeathText.text = "All Deaths: " + _totalDeaths;
+=======
+    void Start()
+    {
+        Debug.Log(_myDeathText);
+      //  _myDeathText.text = "My Deaths: " + _myDeaths.ToString();
+      //  _totalDeathText.text = "All Deaths: " + _totalDeaths;
+>>>>>>> origin/master
     }
 
     void Update()

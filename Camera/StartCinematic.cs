@@ -16,7 +16,8 @@ public class StartCinematic : MonoBehaviour {
     private float goSpeed; //Used to stabilise the speed
     private bool gointToPlayer, doCinematic, skip; //toggle bools
 
-    void Start() {
+    void Awake()
+    {
         mWorld = GameObject.Find("World").GetComponent<MoveWorld>();
         pMov = GameObject.Find("Player").GetComponent<PlayerMovement>();
     }
@@ -29,7 +30,8 @@ public class StartCinematic : MonoBehaviour {
     public void newVals(Transform NewPoint)
     {
         //Setting the states for the cinematic
-        GoToPoint = NewPoint; goSpeed = 1; doCinematic = true; mWorld.DoMoveWorld = false; pMov.stopPlayer();
+        GoToPoint = NewPoint; goSpeed = 1; doCinematic = true; pMov.stopPlayer(); 
+        mWorld.DoMoveWorld = false;
         //Calculating the offset position
         offset = (transform.position - GoToPoint.position);
         //Calculating the rotation offset
