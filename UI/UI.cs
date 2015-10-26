@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -34,16 +34,11 @@ public class UI : MonoBehaviour {
 		_totalDeathText = GameObject.Find("TotalDeathCounter").GetComponent<Text>();
     }
 
-<<<<<<< HEAD
-		_myDeathText.text = "My Deaths: " + _myDeaths;
-		_totalDeathText.text = "All Deaths: " + _totalDeaths;
-=======
     void Start()
     {
         Debug.Log(_myDeathText);
       //  _myDeathText.text = "My Deaths: " + _myDeaths.ToString();
       //  _totalDeathText.text = "All Deaths: " + _totalDeaths;
->>>>>>> origin/master
     }
 
     void Update()
