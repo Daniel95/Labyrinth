@@ -6,7 +6,7 @@ public class MoveWorld : MonoBehaviour {
     private bool _forward, _backward, _left, _right;
     private float _tLeft, _tForward;
     private float _tSpeed;
-    private bool doMoveWorld = true;
+    private bool doMoveWorld = false;
 
     [SerializeField]
     private int _maxAngle = 13;

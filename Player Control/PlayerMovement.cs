@@ -11,9 +11,14 @@ public class PlayerMovement : MonoBehaviour {
 	private BounceBack _bounceBack;
     private Rigidbody _rb;
 
- 	void Start () {
-	 	_bounceBack = GetComponent<BounceBack>();
-	 	_rb = GetComponent<Rigidbody>();
+    void Awake()
+    {
+        _rb = GetComponent<Rigidbody>();
+        _bounceBack = GetComponent<BounceBack>();
+    }
+
+ 	void Start () 
+    {
 		_rb.maxAngularVelocity = maxRollSpeed;
  	}
  
