@@ -14,7 +14,10 @@ public class Finish : MonoBehaviour {
 	void Awake()
 	{
 		finished = false;
-		ui = GameObject.Find("Canvas").GetComponent<UI>();
+        if (GameObject.Find("Canvas") != null)
+        {
+            ui = GameObject.Find("Canvas").GetComponent<UI>();
+        }
 	}
 	
 	// Use this for initialization

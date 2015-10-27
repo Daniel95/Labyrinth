@@ -5,9 +5,8 @@ using UnityEngine.UI;
 public class UI : MonoBehaviour {
 
     private Text _timerText;
-
 	private Text _myDeathText;
-
+    private Text _CauseDeathText;
 	private Text _totalDeathText;
 
 	private Highscore _highScore;
@@ -25,16 +24,17 @@ public class UI : MonoBehaviour {
 
     void Awake()
     {
-		_highScore = GetComponent<Highscore> ();
+        _highScore = GetComponent<Highscore>();
+        _timerText = GameObject.Find("Timer").GetComponent<Text>();
+        _myDeathText = GameObject.Find("MyDeathCounter").GetComponent<Text>();
+        _totalDeathText = GameObject.Find("TotalDeathCounter").GetComponent<Text>();
+        _CauseDeathText = GameObject.Find("CauseDeathText").GetComponent<Text>();
+    }
 
-		_timerText = GameObject.Find("Timer").GetComponent<Text>();
-
-		_myDeathText = GameObject.Find("MyDeathCounter").GetComponent<Text>();
-
-		_totalDeathText = GameObject.Find("TotalDeathCounter").GetComponent<Text>();
-
-		_myDeathText.text = "My Deaths: " + _myDeaths;
-		_totalDeathText.text = "All Deaths: " + _totalDeaths;
+    void Start()
+    {
+        _myDeathText.text = "My Deaths: " + 0;
+        _totalDeathText.text = "All Deaths: " + _totalDeaths;
     }
 
     void Update()
@@ -47,6 +47,7 @@ public class UI : MonoBehaviour {
             fraction = (_theTime * 100) % 100;
 
             _timerText.text = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, fraction);
+
         }
     }
 
@@ -56,7 +57,7 @@ public class UI : MonoBehaviour {
 		//NextLvl(lvl);
 	}
 
-	private void NextLvl(int lvl){
+	public void NextLvl(int lvl){
 		if(lvl != Application.levelCount - 1) Application.LoadLevel(lvl + 1);
 	}
 
@@ -80,16 +81,31 @@ public class UI : MonoBehaviour {
 		Debug.Log (cause);
 		_myDeaths += 1;
 		_myDeathText.text = "My Deaths: " + _myDeaths;
-		_highScore.Deaths();
+        _highScore.Deaths();
+
+        StartCoroutine(DeathScreenCause());
+        _CauseDeathText.text = cause + ". But don't worry, in total " + _totalDeaths + " times people have died in this game.";
 	}
+
+    IEnumerator DeathScreenCause()
+    {
+        yield return new WaitForSeconds(6);
+        _CauseDeathText.text = "";
+    }
 
 	public void TotalDeaths(string deaths){
 		_totalDeaths = deaths;
 		_totalDeathText.text = "All Deaths: " + _totalDeaths;
-		Debug.Log (_totalDeaths);
 	}
 
 	public bool SetCounting {
 		set { _counting = value; }
 	}
+
+    public void ResetValues() {
+        _theTime = 0;
+        _myDeaths = 0;
+        _myDeathText.text = "My Deaths: " + 0;
+    }
+
 }

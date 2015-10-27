@@ -20,8 +20,11 @@ public class CheckPoints : MonoBehaviour {
 		_start = GameObject.Find("Start");
 		//var canvas = GameObject.Find("Canvas");
 		//ui = canvas.get
-		ui = GameObject.Find("Canvas").GetComponent<UI>();
-
+        if (GameObject.Find("Canvas") != null)
+        {
+            ui = GameObject.Find("Canvas").GetComponent<UI>();
+        }
+		
         _currentCheckPoint = _start;
 		goToLastCheckpoint(_start);
 
@@ -40,7 +43,7 @@ public class CheckPoints : MonoBehaviour {
 	}
 
 	public void Dead(string cause){
-		ui.MakeDeathScreen (cause);
+		if (GameObject.Find("Canvas") != null) ui.MakeDeathScreen (cause);
 
 		_rb.velocity = _rb.angularVelocity = Vector3.zero;
 		goToLastCheckpoint(_currentCheckPoint);

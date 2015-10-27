@@ -47,8 +47,8 @@ public class StartCinematic : MonoBehaviour {
         rotationOffset /= goSpeed;
 
         //chaniging the actual camera position
-        transform.position = offset + GoToPoint.position;
-        transform.eulerAngles = rotationOffset + GoToPoint.eulerAngles;
+        transform.eulerAngles = (rotationOffset + GoToPoint.eulerAngles);
+        transform.position = (offset + GoToPoint.position);
 
         //going to the next point
         if (Vector3.Distance(transform.position, GoToPoint.position) == 0 || skip)

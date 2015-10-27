@@ -9,14 +9,14 @@ public class CameraFollow : MonoBehaviour
     private int rotation;
 	[SerializeField]
 	private Transform player;
-    [SerializeField]
-    private Transform playerCamPos;
+    private GameObject playerCamPos;
     
 
     //private bool followPlayer = true;
 
     void Awake()
     {
+        playerCamPos = new GameObject("pCamPos");
 		this.transform.eulerAngles = Vector3.right * rotation;
     }
 
@@ -29,10 +29,9 @@ public class CameraFollow : MonoBehaviour
     public Transform PlayerCam
     {
         get { 
-			playerCamPos.position = player.position + distance;
-			playerCamPos.eulerAngles = Vector3.right * (rotation + 10);
-			return playerCamPos;
+			playerCamPos.transform.position = player.position + distance;
+            playerCamPos.transform.eulerAngles = Vector3.right * (rotation + 10);
+            return playerCamPos.transform;
         }
-		set { playerCamPos = value; }
     }
 }
