@@ -38,12 +38,16 @@ public class CheckPoints : MonoBehaviour {
 			_currentCheckPoint = obj.gameObject;
 
 			_cinematicPoint = obj.gameObject.GetComponent<NextPoint>().newPos;
-			GameObject.Find("Main Camera").GetComponent<StartCinematic>().newVals(_cinematicPoint);
+            if (obj.gameObject.GetComponent<NextPoint>().Done == false)
+            {
+                GameObject.Find("Main Camera").GetComponent<StartCinematic>().newVals(_cinematicPoint);
+                obj.gameObject.GetComponent<NextPoint>().Done = true;
+            }
 		}
 	}
 
 	public void Dead(string cause){
-		if (GameObject.Find("Canvas") != null) ui.MakeDeathScreen (cause);
+		ui.MakeDeathScreen (cause);
 
 		_rb.velocity = _rb.angularVelocity = Vector3.zero;
 		goToLastCheckpoint(_currentCheckPoint);

@@ -102,7 +102,7 @@ public class UI : MonoBehaviour {
 		set { _counting = value; }
 	}
 
-    public void ResetValues() {
+    public void OnEnable() {
         _theTime = 0;
         _myDeaths = 0;
         _myDeathText.text = "My Deaths: " + 0;
