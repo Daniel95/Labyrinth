@@ -11,8 +11,8 @@ public class StartCinematic : MonoBehaviour {
     private Vector3 rotationOffset; //The divrerence between the camera rotation and the destination rotation
     private MoveWorld mWorld; //Move world script
     private PlayerMovement pMov;
+    private UI _ui;
     [SerializeField]
-    private float moveSpeed = 10; //The speed at witch the animation moves
     private float goSpeed; //Used to stabilise the speed
     private bool gointToPlayer, doCinematic, skip; //toggle bools
 
@@ -20,31 +20,41 @@ public class StartCinematic : MonoBehaviour {
     {
         mWorld = GameObject.Find("World").GetComponent<MoveWorld>();
         pMov = GameObject.Find("Player").GetComponent<PlayerMovement>();
+        _ui = GameObject.Find("Canvas").GetComponent<UI>();
+    }
+
+    void FixedUpdate()
+    {
+        if (doCinematic) CinematicChainging();
     }
 
     void Update() {
-        if (doCinematic) DoCinematic();
+        if (doCinematic) CinematicSetting();
     }
 
     //resetting the value's for going to the next point
     public void newVals(Transform NewPoint)
     {
         //Setting the states for the cinematic
-        GoToPoint = NewPoint; goSpeed = 1; doCinematic = true; pMov.stopPlayer(); 
+        _ui.Counting = false; GoToPoint = NewPoint; goSpeed = 1; doCinematic = true; pMov.stopPlayer(); 
         mWorld.DoMoveWorld = false;
         //Calculating the offset position
         offset = (transform.position - GoToPoint.position);
         //Calculating the rotation offset
         rotationOffset = (transform.eulerAngles - GoToPoint.transform.eulerAngles);
     }
-	
-	void DoCinematic () {
+
+    void CinematicChainging()
+    {
         //Making the speed a bit more constand
-        goSpeed += goSpeed / (moveSpeed * 100);
-        
+        goSpeed += goSpeed / 250;
+
         //changing the distance the camera needs to travel to the position
         offset /= goSpeed;
         rotationOffset /= goSpeed;
+    }
+
+	void CinematicSetting () {
 
         //chaniging the actual camera position
         transform.eulerAngles = (rotationOffset + GoToPoint.eulerAngles);
@@ -55,7 +65,7 @@ public class StartCinematic : MonoBehaviour {
         {
             if (skip) transform.eulerAngles = GoToPoint.eulerAngles; transform.position = GoToPoint.position; skip = false;
             //End cinematic
-			if (gointToPlayer) { mWorld.DoMoveWorld = true; doCinematic = false; gointToPlayer = false; skip = false;}
+            if (gointToPlayer) { mWorld.DoMoveWorld = true; doCinematic = false; gointToPlayer = false; skip = false; _ui.Counting = true; }
             else
             {
                 //Prepare for flying to the player
