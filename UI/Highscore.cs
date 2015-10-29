@@ -2,26 +2,34 @@
 using System.Collections;
 
 public class Highscore : MonoBehaviour {
-	
-	private string _name = "Daniel";
 
 	private bool _loading;
 
 	private UI _ui;
 
+    private string _plrName = "Anonymous";
+
 	void Start() {
 		_ui = GetComponent<UI> ();
 	}
 
-	public void Score(int minutes, int seconds, int fration, int lvl){
+	public void Score(int minutes, int seconds, int fraction, int lvl){
 		string url = "http://14411.hosts.ma-cloud.nl/labyrinth/score.php";
 
-		WWWForm form = new WWWForm();
+        //UI = GameObject.Find("Canvas").GetComponent<UI>();
+
+        if (GameObject.Find("plrName") != null) _plrName = GameObject.Find("plrName").GetComponent<SavePlayerName>().PlayerName;
+
+        var minutesSTR = string.Format("{0:00}", minutes);
+        var secondsSTR = string.Format("{0:00}", seconds);
+        var fractionSTR = string.Format("{0:00}", fraction);
+
+        WWWForm form = new WWWForm();
 		form.AddField("lvl", lvl);
-		form.AddField("minutes", minutes);
-        form.AddField("seconds", seconds);
-        form.AddField("fraction", fration);
-        form.AddField("name", _name);
+		form.AddField("minutes", minutesSTR);
+        form.AddField("seconds", secondsSTR);
+        form.AddField("fraction", fractionSTR);
+        form.AddField("name", _plrName);
 		
 		WWW www = new WWW(url, form);
 
@@ -43,10 +51,5 @@ public class Highscore : MonoBehaviour {
 
 		if(scoreUI) _ui.MakeScoreBoard(www.text);
 		else _ui.TotalDeaths(www.text);
-	}
-
-	public string SetName
-	{
-		set { _name = value; }
 	}
 }
