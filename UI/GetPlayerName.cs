@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -19,8 +19,7 @@ public class GetPlayerName : MonoBehaviour {
 
     private void SubmitName(string input)
     {
-        Debug.Log(input);
-        if (input.Length > 2)
+        if (input.Length > 2 && input.Length < 20)
         {
             _save.PlayerName = input;
             button.interactable = true;
