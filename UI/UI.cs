@@ -158,4 +158,9 @@ public class UI : MonoBehaviour {
         _myDeathText.text = "My Deaths: " + 0;
     }
 
+    public bool Counting
+    {
+        get { return _counting; }
+        set { _counting = value; }
+    }
 }

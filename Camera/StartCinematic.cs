@@ -25,7 +25,7 @@ public class StartCinematic : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if (doCinematic) CinematicChainging();
+        if (doCinematic) CinematicTransform();
     }
 
     void Update() {
@@ -44,7 +44,7 @@ public class StartCinematic : MonoBehaviour {
         rotationOffset = (transform.eulerAngles - GoToPoint.transform.eulerAngles);
     }
 
-    void CinematicChainging()
+    void CinematicTransform()
     {
         //Making the speed a bit more constand
         goSpeed += goSpeed / 250;
