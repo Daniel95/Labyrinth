@@ -19,12 +19,28 @@ public class WeightButton : MonoBehaviour
         {
             foreach (GameObject wall in movingWalls)
             {
-                if (wall.GetComponent<MoveToDest>() != null) {
+                if (wall.GetComponent<MoveToDest>() != null && movingWalls != null) {
                     var moveToDest = wall.GetComponent<MoveToDest>();
                     moveToDest.SetActive();
                     if (goToSpecifiedDest) moveToDest.SetDest(goToOrigin);
                 }
                 else Debug.Log("wrong target");
+            }
+        }
+    }
+
+    void OnCollisionExit(Collision obj)
+    {
+        if (obj.gameObject.tag == "Player")
+        {
+            foreach (GameObject wall in movingWalls)
+            {
+                if (wall.GetComponent<MoveToDest>() != null)
+                {
+                    var moveToDest = wall.GetComponent<MoveToDest>();
+                    moveToDest.SetActive();
+                    if (goToSpecifiedDest) moveToDest.SetDest(goToOrigin);
+                }
             }
         }
     }
