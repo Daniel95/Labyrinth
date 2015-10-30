@@ -19,10 +19,18 @@ public class MoveToDest : MonoBehaviour
 	private Transform _destination;
 	private bool _activated;
 
+    //private AudioSource _activateSound;
+
 	void Start(){
 		_destination = originSpot;
 		_activated = true;
-	}
+    }
+
+    void Awake() {
+        //_activateSound = (AudioSource)gameObject.AddComponent<AudioSource>();
+        //_activateSound.clip = (AudioClip)Resources.Load("Audio/switch");
+        //_activateSound.volume = 0.3f;
+    }
 
 	void Update()
 	{
@@ -52,8 +60,9 @@ public class MoveToDest : MonoBehaviour
 	}
 	
 	public void SetActive()
-	{
-		_activated = true;
+    {
+       // if (!_automatic) _activateSound.Play();
+        _activated = true;
 		if(_destination == originSpot) _destination = endSpot;
 		else _destination = originSpot;
 	}

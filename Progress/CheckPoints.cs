@@ -15,8 +15,18 @@ public class CheckPoints : MonoBehaviour {
 
 	private UI ui;
 
+    private AudioSource _checkpointSound;
+
+    private AudioSource _dieSound;
+
 	void Start () {
-		_rb = GetComponent<Rigidbody> ();
+        _checkpointSound = (AudioSource)gameObject.AddComponent<AudioSource>();
+        _checkpointSound.clip = (AudioClip)Resources.Load("Audio/checkpoint");
+
+        _dieSound = (AudioSource)gameObject.AddComponent<AudioSource>();
+        _dieSound.clip = (AudioClip)Resources.Load("Audio/die");
+
+        _rb = GetComponent<Rigidbody> ();
 		_start = GameObject.Find("Start");
 		//var canvas = GameObject.Find("Canvas");
 		//ui = canvas.get
@@ -40,6 +50,8 @@ public class CheckPoints : MonoBehaviour {
 			_cinematicPoint = obj.gameObject.GetComponent<NextPoint>().newPos;
             if (obj.gameObject.GetComponent<NextPoint>().Done == false)
             {
+                _checkpointSound.Play();
+
                 GameObject.Find("Main Camera").GetComponent<StartCinematic>().newVals(_cinematicPoint);
                 obj.gameObject.GetComponent<NextPoint>().Done = true;
             }
@@ -48,6 +60,8 @@ public class CheckPoints : MonoBehaviour {
 
 	public void Dead(string cause){
 		ui.MakeDeathScreen (cause);
+
+        _dieSound.Play();
 
 		_rb.velocity = _rb.angularVelocity = Vector3.zero;
 		goToLastCheckpoint(_currentCheckPoint);

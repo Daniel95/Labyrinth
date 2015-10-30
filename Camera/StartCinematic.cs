@@ -12,20 +12,25 @@ public class StartCinematic : MonoBehaviour {
     private MoveWorld mWorld; //Move world script
     private PlayerMovement pMov;
     private UI _ui;
-    [SerializeField]
     private float goSpeed; //Used to stabilise the speed
     private bool gointToPlayer, doCinematic, skip; //toggle bools
+
+    private AudioSource _camMoveSound;
 
     void Awake()
     {
         mWorld = GameObject.Find("World").GetComponent<MoveWorld>();
         pMov = GameObject.Find("Player").GetComponent<PlayerMovement>();
         _ui = GameObject.Find("Canvas").GetComponent<UI>();
+
+        _camMoveSound = (AudioSource)gameObject.AddComponent<AudioSource>();
+        _camMoveSound.clip = (AudioClip)Resources.Load("Audio/cinematic");
+        _camMoveSound.volume = 2;
     }
 
     void FixedUpdate()
     {
-        if (doCinematic) CinematicTransform();
+        if (doCinematic) CinematicChainging();
     }
 
     void Update() {
@@ -36,15 +41,17 @@ public class StartCinematic : MonoBehaviour {
     public void newVals(Transform NewPoint)
     {
         //Setting the states for the cinematic
-        _ui.Counting = false; GoToPoint = NewPoint; goSpeed = 1; doCinematic = true; pMov.stopPlayer(); 
+        _ui.SetCounting = false; GoToPoint = NewPoint; goSpeed = 1; doCinematic = true; pMov.stopPlayer(); 
         mWorld.DoMoveWorld = false;
         //Calculating the offset position
         offset = (transform.position - GoToPoint.position);
         //Calculating the rotation offset
         rotationOffset = (transform.eulerAngles - GoToPoint.transform.eulerAngles);
+
+        _camMoveSound.Play();
     }
 
-    void CinematicTransform()
+    void CinematicChainging()
     {
         //Making the speed a bit more constand
         goSpeed += goSpeed / 250;
@@ -65,7 +72,7 @@ public class StartCinematic : MonoBehaviour {
         {
             if (skip) transform.eulerAngles = GoToPoint.eulerAngles; transform.position = GoToPoint.position; skip = false;
             //End cinematic
-            if (gointToPlayer) { mWorld.DoMoveWorld = true; doCinematic = false; gointToPlayer = false; skip = false; _ui.Counting = true; }
+            if (gointToPlayer) { mWorld.DoMoveWorld = true; doCinematic = false; gointToPlayer = false; skip = false; _ui.SetCounting = true; }
             else
             {
                 //Prepare for flying to the player

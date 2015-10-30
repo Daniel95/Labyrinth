@@ -16,8 +16,6 @@ public class Highscore : MonoBehaviour {
 	public void Score(int minutes, int seconds, int fraction, int lvl){
 		string url = "http://14411.hosts.ma-cloud.nl/labyrinth/score.php";
 
-        //UI = GameObject.Find("Canvas").GetComponent<UI>();
-
         if (GameObject.Find("plrName") != null) _plrName = GameObject.Find("plrName").GetComponent<SavePlayerName>().PlayerName;
 
         var minutesSTR = string.Format("{0:00}", minutes);

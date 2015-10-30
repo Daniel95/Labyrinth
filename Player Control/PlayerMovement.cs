@@ -11,10 +11,14 @@ public class PlayerMovement : MonoBehaviour {
 	private BounceBack _bounceBack;
     private Rigidbody _rb;
 
+    private AudioSource _collSound;
+
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _bounceBack = GetComponent<BounceBack>();
+        _collSound = (AudioSource)gameObject.AddComponent<AudioSource>();
+        _collSound.clip = (AudioClip)Resources.Load("Audio/coll2");
     }
 
  	void Start () 
@@ -23,9 +27,14 @@ public class PlayerMovement : MonoBehaviour {
  	}
  
  	void OnCollisionEnter(Collision obj) {
-		if (obj.gameObject.tag == "Bounce") {
-		  	_bounceBack.Bounce(obj, bounceStrength);
-		}
+        if (obj.gameObject.tag == "Bounce")
+        {
+            _bounceBack.Bounce(obj, bounceStrength);
+
+        }
+        else {
+            _collSound.Play();
+        }
 	}
 
 	public void goMove (int moveDir) {

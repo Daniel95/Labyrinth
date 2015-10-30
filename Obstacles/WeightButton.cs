@@ -13,10 +13,17 @@ public class WeightButton : MonoBehaviour
     [SerializeField]
     private bool goToOrigin;
 
+    private int _cooldown;
+
+    void Update() {
+        _cooldown--;
+    }
+
     void OnCollisionEnter(Collision plr)
     {
-        if (plr.gameObject.tag == "Player")
+        if (plr.gameObject.tag == "Player" && _cooldown < 0)
         {
+            _cooldown = 60;
             foreach (GameObject wall in movingWalls)
             {
                 if (wall.GetComponent<MoveToDest>() != null && movingWalls != null) {
@@ -31,18 +38,20 @@ public class WeightButton : MonoBehaviour
 
     void OnCollisionExit(Collision obj)
     {
-        if (obj.gameObject.tag == "Player")
+        if (Application.loadedLevelName == "Level10")
         {
-            foreach (GameObject wall in movingWalls)
+            if (obj.gameObject.tag == "Player")
             {
-                if (wall.GetComponent<MoveToDest>() != null)
+                foreach (GameObject wall in movingWalls)
                 {
-                    var moveToDest = wall.GetComponent<MoveToDest>();
-                    moveToDest.SetActive();
-                    if (goToSpecifiedDest) moveToDest.SetDest(goToOrigin);
+                    if (wall.GetComponent<MoveToDest>() != null)
+                    {
+                        var moveToDest = wall.GetComponent<MoveToDest>();
+                        moveToDest.SetActive();
+                        if (goToSpecifiedDest) moveToDest.SetDest(goToOrigin);
+                    }
                 }
             }
         }
     }
-
 }

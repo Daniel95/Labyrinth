@@ -23,10 +23,10 @@ public class KeyboardInput : MonoBehaviour {
 	
 	void getInputs()
 	{
-		if (Input.GetKeyDown(KeyCode.W)) { mWorld.setForward = true; mPlayer.goMove(1); }
-		if (Input.GetKeyDown(KeyCode.S)) { mWorld.setBackward = true; mPlayer.goMove(2); }
-		if (Input.GetKeyDown(KeyCode.A)) { mWorld.setLeft = true; mPlayer.goMove(3); }
-		if (Input.GetKeyDown(KeyCode.D)) { mWorld.setRight = true; mPlayer.goMove(4); }
+		if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) { mWorld.setForward = true; mPlayer.goMove(1); }
+		if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) { mWorld.setBackward = true; mPlayer.goMove(2); }
+		if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) { mWorld.setLeft = true; mPlayer.goMove(3); }
+		if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) { mWorld.setRight = true; mPlayer.goMove(4); }
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			if (MoveObjects != null) MoveObjects();
             sCinematic.Skip = true;
@@ -34,10 +34,10 @@ public class KeyboardInput : MonoBehaviour {
 
 		}
 		
-		if (Input.GetKeyUp(KeyCode.W)) { mWorld.setForward = false; }
-		if (Input.GetKeyUp(KeyCode.S)) { mWorld.setBackward = false; }
-		if (Input.GetKeyUp(KeyCode.A)) { mWorld.setLeft = false; }
-		if (Input.GetKeyUp(KeyCode.D)) { mWorld.setRight = false; }
+		if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow)) { mWorld.setForward = false; }
+		if (Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.DownArrow)) { mWorld.setBackward = false; }
+		if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.LeftArrow)) { mWorld.setLeft = false; }
+		if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.RightArrow)) { mWorld.setRight = false; }
 	}
 	
 }

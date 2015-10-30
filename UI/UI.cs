@@ -21,6 +21,8 @@ public class UI : MonoBehaviour {
 	private string _totalDeaths;
 	private string _cause;
 
+    private bool finished;
+
     private float fraction;
     private float seconds;
     private float minutes;
@@ -36,12 +38,8 @@ public class UI : MonoBehaviour {
         _scoreField = GameObject.Find("scoreField").GetComponent<Text>();
         _highscorePanels = GameObject.Find("_highscore");
         _highscorePanels.SetActive(false);
-    }
 
-    void Start()
-    {
         _myDeathText.text = "My Deaths: " + 0;
-        _totalDeathText.text = "All Deaths: " + _totalDeaths;
     }
 
     void Update()
@@ -61,36 +59,16 @@ public class UI : MonoBehaviour {
 	public void Finished() {
 		int lvl = Application.loadedLevel;
 		_highScore.Score((int)minutes,(int)seconds,(int)fraction, lvl);
-		//NextLvl(lvl);
-	}
+        finished = true;
+        _counting = false;
+    }
 
 	public void NextLvl(int lvl){
 		if(lvl != Application.levelCount - 1) Application.LoadLevel(lvl + 1);
 	}
 
-    /*public void MakeScoreBoard(string score) {
-        string[] myStr = score.Trim().Split('\n');
-        Debug.Log(score);
-        GameObject temp = GameObject.Find("UI");
-        Destroy(temp);
-        _highscorePanels.SetActive(true);
-        
-		foreach(string text in myStr) {
-			string[] myStr2 = text.Split('_');
-            _nameField.text += myStr2[1] + "\n";
-            Debug.Log(myStr2[1]);
-            string[] myStr3 = myStr2[0].Split(' ');
-            var min = myStr3[0];
-            var sec = myStr3[1];
-            var frac = myStr3[2];
-            var time = string.Format("{0:00}:{1:00}:{2:00}", min, sec, frac);
-            _scoreField.text +=time + "\n";
-            Debug.Log(time);
-        }
-	}*/
     public void MakeScoreBoard(string score)
     {
-        _counting = false;
 
         string[] myStr = score.Trim().Split('\n');
         GameObject temp = GameObject.Find("UI");
@@ -100,7 +78,6 @@ public class UI : MonoBehaviour {
         foreach (string text in myStr)
         {
             string[] myStr2 = text.Split('_');
-            Debug.Log(myStr2[1]);
             _nameField.text += myStr2[1] + "\n";
             int stringCounter = 1;
 
@@ -117,23 +94,23 @@ public class UI : MonoBehaviour {
 
             }
 
-            //min = min.ToString();
             string minStr = new string(min.ToArray());
             string secStr = new string(sec.ToArray());
             string fracStr = new string(frac.ToArray());
             var time = string.Format("{0:00}:{1:00}:{2:00}", minStr, secStr, fracStr);
             _scoreField.text += time + "\n";
-            Debug.Log(time);
         }
     }
     public void MakeDeathScreen(string cause){
-		Debug.Log (cause);
-		_myDeaths += 1;
-		_myDeathText.text = "My Deaths: " + _myDeaths;
-        _highScore.Deaths();
+        if (!finished)
+        {
+            _myDeaths += 1;
+            _myDeathText.text = "My Deaths: " + _myDeaths;
+            _highScore.Deaths();
 
-        StartCoroutine(DeathScreenCause());
-        _CauseDeathText.text = cause + ". But don't worry, in total "; 
+            StartCoroutine(DeathScreenCause());
+            _CauseDeathText.text = cause + ". But don't worry, in total ";
+        }
 	}
 
     IEnumerator DeathScreenCause()
@@ -145,22 +122,18 @@ public class UI : MonoBehaviour {
 	public void TotalDeaths(string deaths){
 		_totalDeaths = deaths;
 		_totalDeathText.text = "All Deaths: " + _totalDeaths;
-        _CauseDeathText.text += _totalDeaths + " times people have died in this game.";
+        _CauseDeathText.text += _totalDeaths + " times people died in this game.";
     }
 
 	public bool SetCounting {
 		set { _counting = value; }
 	}
 
-    public void OnEnable() {
+   // public void OnEnable() {
+        /*
         _theTime = 0;
         _myDeaths = 0;
-        _myDeathText.text = "My Deaths: " + 0;
-    }
+        _myDeathText.text = "My Deaths: " + 0;*/
+    //}
 
-    public bool Counting
-    {
-        get { return _counting; }
-        set { _counting = value; }
-    }
 }

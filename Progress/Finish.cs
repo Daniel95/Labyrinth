@@ -2,18 +2,18 @@
 using System.Collections;
 
 public class Finish : MonoBehaviour {
-	//[SerializeField]
-	//private int _levelNumber;
 
 	private UI ui;
 
-	//private int lvl;
-
 	private bool finished;
+
+    private AudioSource _finishSound;
 
 	void Awake()
 	{
-		finished = false;
+        _finishSound = (AudioSource)gameObject.AddComponent<AudioSource>();
+        _finishSound.clip = (AudioClip)Resources.Load("Audio/finish");
+        finished = false;
         if (GameObject.Find("Canvas") != null)
         {
             ui = GameObject.Find("Canvas").GetComponent<UI>();
@@ -26,6 +26,7 @@ public class Finish : MonoBehaviour {
 			if(!finished) {
 				ui.Finished();
 				finished = true;
+                _finishSound.Play();
 			}
 		}
 	}

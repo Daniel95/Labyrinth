@@ -15,8 +15,14 @@ public class SpawnObj : MonoBehaviour
 	private GameObject spawnPoint;
 	private GameObject _world;
 
-	void Start ()
+    private AudioSource _fire;
+
+    void Awake ()
 	{
+        _fire = (AudioSource)gameObject.AddComponent<AudioSource>();
+        _fire.clip = (AudioClip)Resources.Load("Audio/cannonfire");
+        _fire.volume = 0.15f;
+
         _world = GameObject.Find("World");
 
         // Call spawn repeatitly when timer is over
@@ -29,6 +35,6 @@ public class SpawnObj : MonoBehaviour
 		int obstacleIndex = Random.Range(0, obstacle.Length);
 		var Projectile = Instantiate (obstacle[obstacleIndex], spawnPoint.transform.position, spawnPoint.transform.rotation) as GameObject;
 		Projectile.transform.parent = _world.gameObject.transform;
-
+        _fire.Play();
 	}
 }
